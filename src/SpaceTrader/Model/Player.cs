@@ -45,6 +45,9 @@ public class Player
             Location.Top = Location.Top > Destination.Location.Top
                 ? Location.Top - 1
                 : Location.Top + 1;
+
+            IfArrived();
+            return;
         }
 
         if (Location.Left != Destination.Location.Left)
@@ -52,12 +55,18 @@ public class Player
             Location.Left = Location.Left > Destination.Location.Left
                 ? Location.Left - 1
                 : Location.Left + 1;
+
+            IfArrived();
         }
 
-        if (Location == Destination.Location)
+
+        void IfArrived()
         {
-            Destination = null;
-            Status = PlayerStatus.Landed;
+            if (Location == Destination.Location)
+            {
+                Destination = null;
+                Status = PlayerStatus.Landed;
+            }
         }
     }
 }

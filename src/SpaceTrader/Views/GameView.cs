@@ -4,17 +4,20 @@ namespace SpaceTrader.Views;
 
 public class GameView
 {
-    private readonly Universe _universe;
+    private readonly PlanetsCollection _universe;
     private readonly Player _player;
 
-    public GameView(Universe universe, Player player) =>
+    public GameView(PlanetsCollection universe, Player player) =>
         (_universe, _player) = (universe, player);
 
-    public void Refresh()
+    public void Refresh(int ticks)
     {
         RefreshBoarder();
         RefreshMap();
         RefreshPlayerLocation();
+
+        Console.SetCursorPosition(0, 50);
+        Console.WriteLine($"Time: {ticks / 5}.{ticks % 5}");
     }
 
     public void PostEvent(Event @event)
@@ -44,7 +47,7 @@ public class GameView
 
     private void RefreshMap()
     {
-        foreach (var planet in _universe.Planets)
+        foreach (var planet in _universe.Items.Values)
         {
             Console.SetCursorPosition(planet.Location.Left, planet.Location.Top);
             Console.Write("🪐");
